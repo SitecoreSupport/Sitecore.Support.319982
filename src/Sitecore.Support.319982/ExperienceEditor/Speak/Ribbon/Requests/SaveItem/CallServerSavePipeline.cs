@@ -13,6 +13,7 @@ using Sitecore.ExperienceEditor.Switchers;
 using Sitecore.Caching;
 using Sitecore.Globalization;
 using Sitecore.Configuration;
+using System.Web;
 
 namespace Sitecore.Support.ExperienceEditor.Speak.Ribbon.Requests.SaveItem
 {
@@ -64,7 +65,10 @@ namespace Sitecore.Support.ExperienceEditor.Speak.Ribbon.Requests.SaveItem
                         string typeKey = field.TypeKey;
                         if (typeKey != null && typeKey.Equals("single-line text", StringComparison.InvariantCultureIgnoreCase))
                         {
-                            saveArgs.Items.Where(s => s.ID == item.ID).FirstOrDefault().Fields.Where(ab => ab.ID == iD2).ToList().ForEach(field1 => field1.Value = dictionaryForm[text]);
+                            if (dictionaryForm[text] == HttpUtility.HtmlDecode(dictionaryForm[text]))
+                            {
+                                saveArgs.Items.Where(s => s.ID == item.ID).FirstOrDefault().Fields.Where(ab => ab.ID == iD2).ToList().ForEach(field1 => field1.Value = dictionaryForm[text]);
+                            }
                         }
                     }
                 }
