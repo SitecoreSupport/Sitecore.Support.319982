@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExperienceEditor\Speak\Ribbon\Requests\SaveItem\CallServerSavePipeline.cs" />
+    <Compile Include="Pipelines\RenderField\GetTextFieldValue.cs" />
     <Compile Include="Pipelines\Save\ParseXml.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
