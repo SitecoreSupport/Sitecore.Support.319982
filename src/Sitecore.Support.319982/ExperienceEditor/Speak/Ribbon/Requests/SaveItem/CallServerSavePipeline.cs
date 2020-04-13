@@ -59,15 +59,18 @@ namespace Sitecore.Support.ExperienceEditor.Speak.Ribbon.Requests.SaveItem
                     ID iD = ShortID.DecodeID(array3[1]);
                     ID iD2 = ShortID.DecodeID(array3[2]);
                     Item item = database.GetItem(iD);
-                    if (item != null)
+                    if (item != null && item.Fields != null)
                     {
                         Field field = item.Fields[iD2];
-                        string typeKey = field.TypeKey;
-                        if (typeKey != null && typeKey.Equals("single-line text", StringComparison.InvariantCultureIgnoreCase))
+                        if (field != null)
                         {
-                            if (dictionaryForm[text] == HttpUtility.HtmlDecode(dictionaryForm[text]))
+                            string typeKey = field.TypeKey;
+                            if (typeKey != null && typeKey.Equals("single-line text", StringComparison.InvariantCultureIgnoreCase))
                             {
-                                saveArgs.Items.Where(s => s.ID == item.ID).FirstOrDefault().Fields.Where(ab => ab.ID == iD2).ToList().ForEach(field1 => field1.Value = dictionaryForm[text]);
+                                if (dictionaryForm[text] !=null && dictionaryForm[text] == HttpUtility.HtmlDecode(dictionaryForm[text]))
+                                {
+                                    saveArgs.Items.Where(s => (s.Fields!=null)&&(s.ID == item.ID)).FirstOrDefault().Fields.Where(ab => (ab!=null)&&(ab.ID == iD2)).ToList().ForEach(field1 => field1.Value = dictionaryForm[text]);
+                                }
                             }
                         }
                     }
